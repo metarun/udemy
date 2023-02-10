@@ -19,8 +19,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import random
 
-courses = pd.read_csv('/Users/Tarunarora/Library/CloudStorage/GoogleDrive-iamtarora@gmail.com/Other computers/Desktop-Home/Desktop-Home/DS/nlp/udemy/udemy_course_data.csv')
-base_course_name = 'The Complete Chart Pattern Trading Course: A Proven Approach'
+courses = pd.read_csv('/udemy_course_data.csv')
+# base_course_name = 'The Complete Chart Pattern Trading Course: A Proven Approach'
 
 courses['clean_title']  = courses['course_title'].apply(nfx.remove_stopwords)
 courses['clean_title']  = courses['course_title'].apply(nfx.remove_special_characters)
