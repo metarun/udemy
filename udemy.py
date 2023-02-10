@@ -18,6 +18,8 @@ import neattext.functions as nfx
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import random
+import streamlit as st
+
 
 courses = pd.read_csv('udemy_course_data.csv')
 base_course_name = 'The Complete Chart Pattern Trading Course: A Proven Approach'
@@ -31,6 +33,10 @@ clean_title_cos_sim = cosine_similarity(clean_title_vector)
 
 def recom(base_course_name):
     name = []
+    if base_course_name not in courses['course_title'].values:
+        return "Sorry, the course you entered does not exist in the data."
+
+
     index_id = (courses[courses.course_title == base_course_name].course_id).index[0]
     title_cos_sim = clean_title_cos_sim[index_id]
     TITLE_COS_SIM_DICT = dict(enumerate(title_cos_sim))
@@ -47,17 +53,16 @@ def recom(base_course_name):
             # print(f'recommended courses are {name}')
     return(name)
 
-
-random_indices = random.sample(range(0, len(courses)), 5)
-random_rows = courses.iloc[random_indices].course_title.values
-
 st.title('Udemy similar course recommendor')
-import streamlit as st
-
 courses['course_title']
-x  = recom(base_course_name)
-base_course_name = st.text_input("Enter a course from above for which you want to find similer course")
-st.text('Simlier course are ')
-x  = recom(base_course_name)
-x
 
+base_course_name = st.text_input("Enter a course from above for which you want to find similer course")
+
+if base_course_name:
+    similar_courses = recom(base_course_name)
+    st.write("Similar courses are:")
+    for course in similar_courses:
+        st.write("-", course)
+
+else:
+    st.empty()
