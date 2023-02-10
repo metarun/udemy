@@ -19,8 +19,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import random
 
-courses = pd.read_csv('/udemy_course_data.csv')
-# base_course_name = 'The Complete Chart Pattern Trading Course: A Proven Approach'
+courses = pd.read_csv('udemy_course_data.csv')
+base_course_name = 'The Complete Chart Pattern Trading Course: A Proven Approach'
 
 courses['clean_title']  = courses['course_title'].apply(nfx.remove_stopwords)
 courses['clean_title']  = courses['course_title'].apply(nfx.remove_special_characters)
@@ -55,10 +55,9 @@ st.title('Udemy similar course recommendor')
 import streamlit as st
 
 courses['course_title']
+x  = recom(base_course_name)
 base_course_name = st.text_input("Enter a course from above for which you want to find similer course")
-
 st.text('Simlier course are ')
 x  = recom(base_course_name)
 x
-
 
