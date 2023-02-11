@@ -28,8 +28,13 @@ base_course_name = 'The Complete Chart Pattern Trading Course: A Proven Approach
 courses['clean_title'] = courses['course_title'].apply(nfx.remove_stopwords)
 courses['clean_title'] = courses['course_title'].apply(nfx.remove_special_characters)
 
+# Let Countv not to tokenize below words since they no real meaning and even sometime creates problem in outcome
+
+stop_words = ["Complete", "complete","Course","course", "First", "first"]
+
+
 # Create vectors for the new clean_title
-vectorizer = CountVectorizer()
+vectorizer = CountVectorizer(stop_words=stop_words)
 clean_title_vector = vectorizer.fit_transform(courses['clean_title'])
 
 # For the vectors matrix, calculate cos_simliarity 
